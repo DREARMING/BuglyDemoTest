@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.mvcoder.buglydemotest.notification.NotificationActivity;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     Button btCrash;
     @BindView(R.id.bt_update)
     Button btUpdate;
+    @BindView(R.id.bt_notification)
+    Button btNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private void requestPermission() {
         String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if(!EasyPermissions.hasPermissions(this, permissions)){
-            EasyPermissions.requestPermissions(this,"该软件需要一些权限", 1,permissions);
+        if (!EasyPermissions.hasPermissions(this, permissions)) {
+            EasyPermissions.requestPermissions(this, "该软件需要一些权限", 1, permissions);
         }
     }
 
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      */
     public native String stringFromJNI();
 
-    @OnClick({R.id.bt_crash, R.id.bt_update})
+    @OnClick({R.id.bt_crash, R.id.bt_update, R.id.bt_notification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_crash:
@@ -52,11 +56,19 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 break;
             case R.id.bt_update:
                 break;
+            case R.id.bt_notification:
+                joinToNotificationActivity();
+                break;
         }
     }
 
-    private void joinToCrashActivity(){
+    private void joinToCrashActivity() {
         Intent intent = new Intent(this, CrashActivity.class);
+        startActivity(intent);
+    }
+
+    private void joinToNotificationActivity() {
+        Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
 

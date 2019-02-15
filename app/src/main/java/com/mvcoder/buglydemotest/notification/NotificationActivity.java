@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.mvcoder.buglydemotest.MainActivity;
 import com.mvcoder.buglydemotest.R;
 
 import butterknife.BindString;
@@ -38,7 +40,7 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.bt_channel_notification)
     Button btChannelNotification;
 
-    private final int notification_id = 10;
+    private final int notification_id = 11;
 
     private Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
@@ -56,6 +58,7 @@ public class NotificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+        LogUtils.d("NotificationActivity on create");
         ButterKnife.bind(this);
 
     }
@@ -105,12 +108,21 @@ public class NotificationActivity extends AppCompatActivity {
             builder = new NotificationCompat.Builder(this);
         }
 
-        Intent intent = new Intent(this, NotificationViewerActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("notification",true);
+        intent.putExtra("targetActivity", NotificationViewerActivity.class.getName());
         intent.putExtra("content", "hello , this is bugly notification content");
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        PendingIntent pendingIntent = PendingIntent.getActivities(this, 1, new Intent[]{intent}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+       /* TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+        taskStackBuilder.addParentStack(NotificationViewerActivity.class);
+        taskStackBuilder.addNextIntent(intent);*/
+
+       // PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = builder.setContentTitle("Bugly通知测试")
                 .setContentText("Bugly notification content")
@@ -119,11 +131,24 @@ public class NotificationActivity extends AppCompatActivity {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 //.setTimeoutAfter(10000)  //通知发送出去后，10秒后自动取消
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
 
         manager.notify(notification_id, notification);
 
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtils.d("notification on new intent");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtils.d(NotificationActivity.class.getSimpleName() + "onDestroy");
     }
 }

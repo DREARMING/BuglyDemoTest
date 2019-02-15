@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".workmanager.WorkManagerActivity">
+
+    <Button
+        android:id="@+id/btSimpleTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Simple Task"
+        app:layout_constraintBottom_toTopOf="@+id/btCancelTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btChainTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="chain task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btSimpleTask"
+        app:layout_constraintTop_toBottomOf="@+id/btWifiTask" />
+
+    <Button
+        android:id="@+id/btWifiTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="wifi task"
+        app:layout_constraintBottom_toTopOf="@+id/btChainTask"
+        app:layout_constraintStart_toStartOf="@+id/btSimpleTask"
+        app:layout_constraintTop_toBottomOf="@+id/btCancelTask" />
+
+    <Button
+        android:id="@+id/btCancelTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="cancel task"
+        app:layout_constraintBottom_toTopOf="@+id/btWifiTask"
+        app:layout_constraintStart_toStartOf="@+id/btSimpleTask"
+        app:layout_constraintTop_toBottomOf="@+id/btSimpleTask" />
+
+
+</android.support.constraint.ConstraintLayout>

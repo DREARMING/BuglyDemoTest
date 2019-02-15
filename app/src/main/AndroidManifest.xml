@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".BuglyDemoApplication"
@@ -26,8 +27,26 @@
             </intent-filter>
         </activity>
         <activity android:name=".CrashActivity" />
-        <activity android:name=".notification.NotificationActivity" />
-        <activity android:name=".notification.NotificationViewerActivity"></activity>
+        <activity android:name=".notification.NotificationActivity">
+
+            <!--
+                <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mvcoder.buglydemotest.MainActivity" />
+            -->
+        </activity>
+        <activity android:name=".notification.NotificationViewerActivity">
+
+            <!--
+                <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mvcoder.buglydemotest.notification.NotificationActivity" />
+            -->
+        </activity>
+
+        <service android:name=".service.SimpleService" />
+        <service android:name=".service.ForegroundSimpleServide" />
+
+        <activity android:name=".workmanager.WorkManagerActivity"></activity>
     </application>
 
 </manifest>

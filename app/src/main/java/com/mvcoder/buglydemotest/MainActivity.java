@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvcoder.buglydemotest.notification.NotificationActivity;
+import com.mvcoder.buglydemotest.service.ForegroundSimpleServide;
+import com.mvcoder.buglydemotest.service.SimpleService;
+import com.mvcoder.buglydemotest.workmanager.WorkManagerActivity;
 
 import java.util.List;
 
@@ -25,18 +29,33 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     Button btUpdate;
     @BindView(R.id.bt_notification)
     Button btNotification;
+    @BindView(R.id.bt_work_manager)
+    Button btWorkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getArgument(getIntent());
+        LogUtils.d("MainActivity on Create");
         ButterKnife.bind(this);
         requestPermission();
     }
 
+    private void getArgument(Intent intent) {
+        boolean notificationEnter = intent.getBooleanExtra("notification", false);
+        if (notificationEnter) {
+            String activityName = intent.getStringExtra("targetActivity");
+            Intent intent1 = new Intent();
+            intent1.putExtra("content", intent.getStringExtra("content"));
+            intent1.setClassName(this, activityName);
+            startActivity(intent1);
+        }
+    }
+
     private void requestPermission() {
         String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.FOREGROUND_SERVICE};
         if (!EasyPermissions.hasPermissions(this, permissions)) {
             EasyPermissions.requestPermissions(this, "该软件需要一些权限", 1, permissions);
         }
@@ -48,18 +67,37 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      */
     public native String stringFromJNI();
 
-    @OnClick({R.id.bt_crash, R.id.bt_update, R.id.bt_notification})
+    @OnClick({R.id.bt_crash, R.id.bt_update, R.id.bt_notification,R.id.bt_work_manager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_crash:
                 joinToCrashActivity();
                 break;
             case R.id.bt_update:
+                startForeService();
                 break;
             case R.id.bt_notification:
                 joinToNotificationActivity();
                 break;
+            case R.id.bt_work_manager:
+                joinToWorkManagerActivity();
+                break;
         }
+    }
+
+    private void joinToWorkManagerActivity(){
+        Intent intent = new Intent(this, WorkManagerActivity.class);
+        startActivity(intent);
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, SimpleService.class);
+        startService(intent);
+    }
+
+    private void startForeService() {
+        Intent intent = new Intent(this, ForegroundSimpleServide.class);
+        startService(intent);
     }
 
     private void joinToCrashActivity() {
@@ -80,5 +118,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtils.d(MainActivity.class.getSimpleName() + "onDestroy");
     }
 }

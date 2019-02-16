@@ -61,7 +61,7 @@ public class WorkManagerActivity extends AppCompatActivity {
 
                 .build();
         OneTimeWorkRequest request = builder
-                .setInitialDelay(5, TimeUnit.SECONDS)      //..延迟10秒启动
+                .setInitialDelay(10, TimeUnit.SECONDS)      //..延迟10秒启动
                 .setConstraints(constraints)
                 .setInputData(new Data.Builder()
                         .putString("data","simple task : 赶紧给我启动Simple Service")

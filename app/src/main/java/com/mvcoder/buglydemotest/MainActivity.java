@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvcoder.buglydemotest.notification.NotificationActivity;
-import com.mvcoder.buglydemotest.service.ForegroundSimpleServide;
+import com.mvcoder.buglydemotest.service.ForegroundSimpleService;
 import com.mvcoder.buglydemotest.service.SimpleService;
 import com.mvcoder.buglydemotest.workmanager.WorkManagerActivity;
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 joinToCrashActivity();
                 break;
             case R.id.bt_update:
-                startForeService();
+                startService();
                 break;
             case R.id.bt_notification:
                 joinToNotificationActivity();
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     private void startForeService() {
-        Intent intent = new Intent(this, ForegroundSimpleServide.class);
+        Intent intent = new Intent(this, ForegroundSimpleService.class);
         startService(intent);
     }
 
@@ -118,6 +118,12 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtils.d("MainActivity on new intent");
     }
 
     @Override

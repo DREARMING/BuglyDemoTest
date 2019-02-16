@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import com.blankj.utilcode.util.LogUtils;
 import com.mvcoder.buglydemotest.R;
 
-public class ForegroundSimpleServide extends Service {
+public class ForegroundSimpleService extends Service {
 
     private volatile boolean running = true;
 

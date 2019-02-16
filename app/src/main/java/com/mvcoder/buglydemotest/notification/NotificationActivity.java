@@ -73,6 +73,7 @@ public class NotificationActivity extends AppCompatActivity {
                 deleteChannel();
                 break;
             case R.id.bt_channel_notification:
+                showTaskStackNotification();
                 break;
         }
     }
@@ -136,8 +137,58 @@ public class NotificationActivity extends AppCompatActivity {
                 .build();
 
         manager.notify(notification_id, notification);
+    }
 
+    private void showTaskStackNotification(){
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(manager == null) return;
 
+        NotificationCompat.Builder builder =  null;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel temp = manager.getNotificationChannel(channelId);
+            if(temp == null){
+                temp = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+                temp.enableLights(true);
+                temp.setLightColor(Color.GREEN);
+                manager.createNotificationChannel(temp);
+            }
+            builder = new NotificationCompat.Builder(this, temp.getId());
+        }else{
+            builder = new NotificationCompat.Builder(this);
+        }
+
+        /*Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("notification",true);
+        intent.putExtra("targetActivity", NotificationViewerActivity.class.getName());
+        intent.putExtra("content", "hello , this is bugly notification content");
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+*/
+
+        Intent intent = new Intent(this, NotificationViewerActivity.class);
+        intent.putExtra("content", "hello , this is bugly notification content");
+
+        /*TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+        taskStackBuilder.addParentStack(NotificationViewerActivity.class);
+        taskStackBuilder.addNextIntent(intent);
+
+         PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);*/
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = builder.setContentTitle("Bugly通知测试")
+                .setContentText("Bugly notification content")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                //.setTimeoutAfter(10000)  //通知发送出去后，10秒后自动取消
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        manager.notify(notification_id, notification);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mvcoder.buglydemotest.workmanager;
 
 import android.arch.lifecycle.Observer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.mvcoder.buglydemotest.R;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.NetworkType;
@@ -49,6 +51,7 @@ public class WorkManagerActivity extends AppCompatActivity {
                 createChainTask();
                 break;
             case R.id.btWifiTask:
+                createRetryWorker();
                 break;
         }
     }
@@ -116,6 +119,27 @@ public class WorkManagerActivity extends AppCompatActivity {
 
     }
 
+
+    private void createRetryWorker(){
+        OneTimeWorkRequest.Builder builder = new OneTimeWorkRequest.Builder(RetryWorker.class);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            builder.setBackoffCriteria(BackoffPolicy.LINEAR, 5, TimeUnit.SECONDS);
+        }
+        OneTimeWorkRequest request = builder.build();
+        WorkManager.getInstance().enqueue(request);
+
+        UUID requestId = request.getId();
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(requestId).observe(this, new Observer<WorkInfo>() {
+            @Override
+            public void onChanged(@Nullable WorkInfo workInfo) {
+                if(workInfo != null){
+                    LogUtils.d("work state : " + workInfo.getState().toString());
+                }
+            }
+        });
+
+    }
 
 
 

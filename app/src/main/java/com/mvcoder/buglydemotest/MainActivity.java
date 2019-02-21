@@ -2,6 +2,7 @@ package com.mvcoder.buglydemotest;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.mvcoder.buglydemotest.service.ForegroundSimpleService;
 import com.mvcoder.buglydemotest.service.SimpleService;
 import com.mvcoder.buglydemotest.workmanager.WorkManagerActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,8 +56,14 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     private void requestPermission() {
-        String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.FOREGROUND_SERVICE};
+        List<String> permissionList = new ArrayList<>();
+        permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            permissionList.add(Manifest.permission.FOREGROUND_SERVICE);
+        }
+        String[] permissions = permissionList.toArray(new String[]{});
         if (!EasyPermissions.hasPermissions(this, permissions)) {
             EasyPermissions.requestPermissions(this, "该软件需要一些权限", 1, permissions);
         }

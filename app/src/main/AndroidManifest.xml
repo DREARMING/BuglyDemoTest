@@ -29,23 +29,27 @@
         <activity android:name=".CrashActivity" />
         <activity android:name=".notification.NotificationActivity">
 
-                <!--<meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mvcoder.buglydemotest.MainActivity" />-->
+            <!--
+                <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mvcoder.buglydemotest.MainActivity" />
+            -->
 
         </activity>
         <activity android:name=".notification.NotificationViewerActivity">
 
-
-                <!--<meta-data
+            <!--
+                <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mvcoder.buglydemotest.notification.NotificationActivity" />-->
+                android:value="com.mvcoder.buglydemotest.notification.NotificationActivity" />
+            -->
 
         </activity>
 
         <service android:name=".service.SimpleService" />
         <service android:name=".service.ForegroundSimpleService" />
 
-        <activity android:name=".workmanager.WorkManagerActivity"></activity>
+        <activity android:name=".workmanager.WorkManagerActivity" />
+        <activity android:name=".paging.PagingActivity"></activity>
     </application>
 
 </manifest>

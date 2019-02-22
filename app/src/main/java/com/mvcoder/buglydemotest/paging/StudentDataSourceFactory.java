@@ -5,7 +5,7 @@ import android.arch.paging.DataSource;
 
 public class StudentDataSourceFactory extends DataSource.Factory<String, StudentBean> {
 
-    private MutableLiveData<StudentDataSource> sourceLiveData;
+    private MutableLiveData<StudentDataSource> sourceLiveData = new MutableLiveData<>();
 
     public MutableLiveData<StudentDataSource> getSourceLiveData() {
         return sourceLiveData;

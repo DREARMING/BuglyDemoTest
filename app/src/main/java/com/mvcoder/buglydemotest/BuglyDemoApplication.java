@@ -3,6 +3,7 @@ package com.mvcoder.buglydemotest;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.mvcoder.buglydemotest.paging.DBUtil;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 
@@ -14,6 +15,7 @@ public class BuglyDemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
+        DBUtil.getInstance().init(getApplicationContext(),"paging.db");
         //initBugly();
     }
 

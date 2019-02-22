@@ -46,6 +46,12 @@
         app:layout_constraintStart_toEndOf="@+id/bt_notification"
         app:layout_constraintTop_toTopOf="@+id/bt_notification" />
 
-
+    <Button
+        android:id="@+id/bt_paging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Paging library test"
+        app:layout_constraintTop_toBottomOf="@+id/bt_notification" />
 
 </android.support.constraint.ConstraintLayout>

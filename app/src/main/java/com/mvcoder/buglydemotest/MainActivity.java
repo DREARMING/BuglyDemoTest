@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvcoder.buglydemotest.notification.NotificationActivity;
+import com.mvcoder.buglydemotest.paging.PagingActivity;
 import com.mvcoder.buglydemotest.service.ForegroundSimpleService;
 import com.mvcoder.buglydemotest.service.SimpleService;
 import com.mvcoder.buglydemotest.workmanager.WorkManagerActivity;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     Button btNotification;
     @BindView(R.id.bt_work_manager)
     Button btWorkManager;
+    @BindView(R.id.bt_paging)
+    Button btPaging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         permissionList.add(Manifest.permission.READ_PHONE_STATE);
         permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             permissionList.add(Manifest.permission.FOREGROUND_SERVICE);
         }
         String[] permissions = permissionList.toArray(new String[]{});
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      */
     public native String stringFromJNI();
 
-    @OnClick({R.id.bt_crash, R.id.bt_update, R.id.bt_notification,R.id.bt_work_manager})
+    @OnClick({R.id.bt_crash, R.id.bt_update, R.id.bt_notification, R.id.bt_work_manager, R.id.bt_paging})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_crash:
@@ -90,10 +93,18 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             case R.id.bt_work_manager:
                 joinToWorkManagerActivity();
                 break;
+            case R.id.bt_paging:
+                joinToPagingActvitiy();
+                break;
         }
     }
 
-    private void joinToWorkManagerActivity(){
+    private void joinToPagingActvitiy(){
+        Intent intent = new Intent(this, PagingActivity.class);
+        startActivity(intent);
+    }
+
+    private void joinToWorkManagerActivity() {
         Intent intent = new Intent(this, WorkManagerActivity.class);
         startActivity(intent);
     }

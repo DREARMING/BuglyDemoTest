@@ -1,28 +1,33 @@
 package com.mvcoder.buglydemotest.paging;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+
+@Entity
 public class StudentBean {
 
-    private String id;
+    private int id;
     private String name;
-
-    public StudentBean(String id, String name) {
+    @Generated(hash = 599421776)
+    public StudentBean(int id, String name) {
         this.id = id;
         this.name = name;
     }
-
-    public String getId() {
-        return id;
+    @Generated(hash = 2097171990)
+    public StudentBean() {
     }
-
-    public void setId(String id) {
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
-        return name;
+        return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
+
+    
 }

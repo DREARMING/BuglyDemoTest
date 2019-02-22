@@ -26,6 +26,17 @@ public class Resource<T> {
         return new Resource(Status.ERROR, data,  msg);
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     enum Status{
         SUCCESS, ERROR, LOADING

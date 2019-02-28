@@ -69,7 +69,7 @@ public class BuglyDemoApplication extends Application {
         //升级配置
         Beta.autoInit = true;   //默认就是true
 
-        Beta.upgradeDialogLayoutId = R.layout.dialog_update;
+        //Beta.upgradeDialogLayoutId = R.layout.dialog_update;
 
 
 

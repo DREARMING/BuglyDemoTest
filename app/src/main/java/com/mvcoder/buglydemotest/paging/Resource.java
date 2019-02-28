@@ -14,16 +14,16 @@ public class Resource<T> {
         this.data = data;
     }
 
-    public static <T> Resource<T> loading(String msg, T data){
-        return new Resource(Status.LOADING, data,  msg);
+    static <T> Resource<T> loading(String msg, T data){
+        return new Resource<>(Status.LOADING, data,  msg);
     }
 
-    public static <T> Resource<T> success(T data){
-        return new Resource(Status.SUCCESS, data,  null);
+    static <T> Resource<T> success(T data){
+        return new Resource<>(Status.SUCCESS, data,  null);
     }
 
     public static <T> Resource<T> error(String msg, T data){
-        return new Resource(Status.ERROR, data,  msg);
+        return new Resource<>(Status.ERROR, data,  msg);
     }
 
     public String getMessage() {

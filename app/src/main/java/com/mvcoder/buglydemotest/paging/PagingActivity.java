@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.mvcoder.buglydemotest.R;
 import com.mvcoder.buglydemotest.greendao.StudentBeanDao;
 
@@ -65,7 +66,12 @@ public class PagingActivity extends AppCompatActivity {
             }
         }).get(StudentViewModel.class);
 
-        insertDataInDB();
+
+        boolean hadInsertIndb = SPUtils.getInstance().getBoolean("db", false);
+        if(!hadInsertIndb) {
+            insertDataInDB();
+            SPUtils.getInstance().put("db", true);
+        }
     }
 
     private void insertDataInDB() {
@@ -138,7 +144,6 @@ public class PagingActivity extends AppCompatActivity {
         //adapter.submitList(null);
         //viewModel.resetPagingLibrary();
         viewModel.addItem();
-
         //registerObserver();
     }
 }

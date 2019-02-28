@@ -1,6 +1,7 @@
 package com.mvcoder.buglydemotest;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +13,13 @@ import com.blankj.utilcode.util.LogUtils;
 import com.mvcoder.buglydemotest.notification.NotificationActivity;
 import com.mvcoder.buglydemotest.paging.PagingActivity;
 import com.mvcoder.buglydemotest.service.ForegroundSimpleService;
+import com.mvcoder.buglydemotest.service.NoNotificationForegroudService;
 import com.mvcoder.buglydemotest.service.SimpleService;
+import com.mvcoder.buglydemotest.update.UpdateActivity;
 import com.mvcoder.buglydemotest.workmanager.WorkManagerActivity;
+import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.UpgradeInfo;
+import com.tencent.bugly.beta.ui.UILifecycleListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +51,46 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         LogUtils.d("MainActivity on Create");
         ButterKnife.bind(this);
         requestPermission();
+        initView();
+    }
+
+    private void initView() {
+
+
+        Beta.upgradeDialogLifecycleListener = new UILifecycleListener<UpgradeInfo>() {
+            @Override
+            public void onCreate(Context context, View view, UpgradeInfo upgradeInfo) {
+                // 注：可通过这个回调方式获取布局的控件，如果设置了id，可通过findViewById方式获取，如果设置了tag，可以通过findViewWithTag，具体参考下面例子:
+
+                // 通过id方式获取控件，并更改imageview图片
+                // 通过tag方式获取控件，并更改布局内容
+
+                // 更多的操作：比如设置控件的点击事件
+            }
+
+            @Override
+            public void onStart(Context context, View view, UpgradeInfo upgradeInfo) {
+            }
+
+            @Override
+            public void onResume(Context context, View view, UpgradeInfo upgradeInfo) {
+
+            }
+
+            @Override
+            public void onPause(Context context, View view, UpgradeInfo upgradeInfo) {
+            }
+
+            @Override
+            public void onStop(Context context, View view, UpgradeInfo upgradeInfo) {
+            }
+
+            @Override
+            public void onDestroy(Context context, View view, UpgradeInfo upgradeInfo) {
+            }
+
+        };
+
     }
 
     private void getArgument(Intent intent) {
@@ -85,7 +131,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 joinToCrashActivity();
                 break;
             case R.id.bt_update:
-                startService();
+                //startNoNotificationStartService();
+                joinUpdateActivity();
                 break;
             case R.id.bt_notification:
                 joinToNotificationActivity();
@@ -97,6 +144,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 joinToPagingActvitiy();
                 break;
         }
+    }
+
+    private void joinUpdateActivity(){
+        Intent intent = new Intent(this, UpdateActivity.class);
+        startActivity(intent);
     }
 
     private void joinToPagingActvitiy(){
@@ -111,6 +163,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     private void startService() {
         Intent intent = new Intent(this, SimpleService.class);
+        startService(intent);
+    }
+
+    private void startNoNotificationStartService(){
+        Intent intent = new Intent(this, NoNotificationForegroudService.class);
         startService(intent);
     }
 

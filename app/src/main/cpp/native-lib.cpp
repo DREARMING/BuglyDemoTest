@@ -17,6 +17,9 @@ extern "C" {
         int a1 = 10;
         int b1 = 0;
         int result = a1 / b1;
+        string test = "hello";
+        char c = test.at(6);
+        printf("%s", c);
         printf("%d / %d == %s" , a1, b1, result);
     }
 

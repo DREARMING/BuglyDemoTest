@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.tencent.bugly.crashreport.BuglyLog;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,12 +60,16 @@ public class CrashActivity extends AppCompatActivity {
 
     private void testANR() {
         try {
-            Thread.sleep(10000);
+            for(int i = 1; i < 1000; i++){
+                Thread.sleep(10 * 1000);
+            }
             log("sleep 6 seconds to response user");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+    private final static String log_tag = "scene";
 
     private void log(String log) {
         Log.d(TAG, log);
@@ -73,15 +79,18 @@ public class CrashActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btJavaCrash:
+                BuglyLog.d(log_tag, "touch java crash button");
                 javaCrash();
                 break;
             case R.id.btNativeCrash:
+                BuglyLog.d(log_tag, "touch native crash button");
                 nativeCrash();
                 break;
             case R.id.btJavaScriptCrash:
                 javascriptCrash();
                 break;
             case R.id.btANR:
+                BuglyLog.d(log_tag, "touch anr crash button");
                 testANR();
                 break;
         }

@@ -1,0 +1,17 @@
+{
+
+  "channelInfoList": [
+    {
+      "channel": "xiaomi",
+      "extraInfo":{
+        "channelId":"20190227"
+      }
+    },
+    {
+      "channel": "yingyongbao",
+      "extraInfo":{
+        "channelId":"20190228"
+      }
+    }
+  ]
+}

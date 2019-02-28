@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    >
+
+    <ImageView
+        android:id="@+id/iv_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_margin="13dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@mipmap/bg_qr_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="beta_title"
+        android:text="版本Title"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_banner"
+        app:layout_constraintEnd_toEndOf="@+id/iv_banner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_banner" />
+
+
+    <TextView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_qr_dialog_delete"
+        android:tag="beta_cancel_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="版本信息:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_banner"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/iv_banner"
+        app:layout_constraintTop_toBottomOf="@+id/iv_banner" />
+
+    <TextView
+        android:id="@+id/tv_info_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:tag="beta_upgrade_info"
+        android:text="apk大小：2.1m"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tv_info"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_info"
+        app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+
+
+    <TextView
+        android:id="@+id/tv_update_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="新增功能:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_info"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_info"
+        app:layout_constraintTop_toBottomOf="@+id/tv_info_detail" />
+
+    <TextView
+        android:id="@+id/tv_update_info_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:tag="beta_upgrade_feature"
+        android:text="1.更新UI"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tv_update_info"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_update_info"
+        app:layout_constraintTop_toBottomOf="@+id/tv_update_info" />
+
+    <Button
+        android:id="@+id/btUpdate"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_update_dialog"
+        android:padding="8dp"
+        android:text="立即升级"
+        android:textColor="@android:color/white"
+        android:tag="beta_confirm_button"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iv_banner"
+        app:layout_constraintStart_toStartOf="@+id/iv_banner"
+        app:layout_constraintTop_toBottomOf="@+id/tv_update_info_detail" />
+
+</android.support.constraint.ConstraintLayout>

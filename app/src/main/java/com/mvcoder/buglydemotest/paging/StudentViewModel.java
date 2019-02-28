@@ -35,17 +35,6 @@ public class StudentViewModel extends AndroidViewModel {
         refreshState = repoResult.getRefreshState();
     }
 
-    public void setRepository(@NonNull StudentRepository studentRepository){
-        this.repository = studentRepository;
-    }
-
-    public void resetPagingLibrary(){
-        repoResult = repository.getStudentList(PAGE_SIZE);
-        posts = repoResult.getPageList();
-        networkState = repoResult.getNetworkState();
-        refreshState = repoResult.getRefreshState();
-    }
-
     public void refresh(){
         if(repoResult != null && repoResult.getDataSource().getValue() != null) {
             repoResult.getDataSource().getValue().invalidate();
@@ -58,9 +47,6 @@ public class StudentViewModel extends AndroidViewModel {
         }
     }
 
-    private void showData(){
-
-    }
 
     public void addItem(){
         if(repoResult.getDataSource().getValue() != null && posts.getValue() != null) {

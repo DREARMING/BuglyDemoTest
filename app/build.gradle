@@ -13,6 +13,7 @@ android {
         versionCode 4
         versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
         externalNativeBuild {
             cmake {
                 cppFlags ""
@@ -113,4 +114,6 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
 
     implementation 'com.meituan.android.walle:library:1.1.6'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }

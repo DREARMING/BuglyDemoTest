@@ -97,6 +97,7 @@ public class BuglyDemoApplicationLike extends DefaultApplicationLike {
 
         Beta.upgradeCheckPeriod = 10 * 1000;
 
+        Bugly.setIsDevelopmentDevice(getApplication(), true);
         Bugly.init(getApplication(), APP_ID, BuildConfig.DEBUG, strategy);
     }
 }

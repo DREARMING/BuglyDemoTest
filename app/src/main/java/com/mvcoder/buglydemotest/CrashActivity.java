@@ -1,5 +1,6 @@
 package com.mvcoder.buglydemotest;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.tencent.bugly.crashreport.BuglyLog;
+import com.tencent.tinker.lib.library.TinkerLoadLibrary;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,9 +18,9 @@ public class CrashActivity extends AppCompatActivity {
 
     private static final String TAG = CrashActivity.class.getSimpleName();
 
-    static {
+    /*static {
         System.loadLibrary("native-lib");
-    }
+    }*/
 
     @BindView(R.id.btJavaCrash)
     Button btJavaCrash;
@@ -47,6 +49,8 @@ public class CrashActivity extends AppCompatActivity {
     }
 
     private void nativeCrash() {
+        TinkerLoadLibrary.installNavitveLibraryABI(this, Build.CPU_ABI);
+        System.loadLibrary("native-lib");
         log(stringFromJNI());
         log("call native method !! 将会发生除0异常");
         throwNativeException();
